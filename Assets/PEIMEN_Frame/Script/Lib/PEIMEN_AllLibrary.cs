@@ -246,3 +246,13 @@ public abstract class GameObjectPoolInsBase : PEIKnifer
 }
 
 #endregion
+
+#region  PEIKnifer NullFunction Class
+
+public class PEIKNF_NullFunction
+{
+    public static void NullFunction() { }
+    public static void NullFunction(float[] floAry) { }
+}
+
+#endregion
