@@ -260,11 +260,9 @@ public class PEIKNF_NullFunction
 
 public class PEIKTM : PEIKnifer
 {
-    public static float deltaTime;
-
     private static PEIKTM _ins;
 
-    public static float DeltaTime { get => deltaTime; private set => deltaTime = value; }
+    public static float DeltaTime { get; private set; }
 
     public static bool WeekUp()
     {
@@ -274,7 +272,7 @@ public class PEIKTM : PEIKnifer
         try
         {
             _ins = Instantiate(new GameObject()).AddComponent<PEIKTM>();
-            deltaTime = Time.deltaTime;
+            DeltaTime = Time.deltaTime;
             PEIKDE.Log("PTM", "PEIKTM Time Class Week Up");
             return true;
         }
@@ -284,7 +282,7 @@ public class PEIKTM : PEIKnifer
     }
     private void Update()
     {
-        deltaTime = Time.deltaTime;
+        DeltaTime = Time.deltaTime;
     }
 }
 
