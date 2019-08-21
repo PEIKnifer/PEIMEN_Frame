@@ -256,3 +256,36 @@ public class PEIKNF_NullFunction
 }
 
 #endregion
+#region  PEIKnifer NullFunction Class
+
+public class PEIKTM : PEIKnifer
+{
+    public static float deltaTime;
+
+    private static PEIKTM _ins;
+
+    public static float DeltaTime { get => deltaTime; private set => deltaTime = value; }
+
+    public static bool WeekUp()
+    {
+        if (_ins)
+            return true;
+
+        try
+        {
+            _ins = Instantiate(new GameObject()).AddComponent<PEIKTM>();
+            deltaTime = Time.deltaTime;
+            PEIKDE.Log("PTM", "PEIKTM Time Class Week Up");
+            return true;
+        }
+        catch {
+            return false;
+        }
+    }
+    private void Update()
+    {
+        deltaTime = Time.deltaTime;
+    }
+}
+
+#endregion

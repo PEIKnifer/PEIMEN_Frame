@@ -38,6 +38,7 @@ namespace PEIKTS
             }
         }
 
+
         void Awake()
         {
             _current = this;
@@ -56,6 +57,7 @@ namespace PEIKTS
                 initialized = true;
                 var g = new GameObject("Loom");
                 _current = g.AddComponent<Loom>();
+                PEIKDE.Log("Loom", "Init Complate");
             }
 
         }

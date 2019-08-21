@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PEIKBS_AllBegin</name>
+    </assembly>
+    <members>
+        <member name="T:PEIKnifer">
+            <summary>
+            PEIKnifer Base Mono Class
+            </summary>
+        </member>
+        <member name="M:PEIKnifer.NullFunction">
+            <summary>
+            Origin Null Function
+            </summary>
+        </member>
+    </members>
+</doc>
