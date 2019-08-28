@@ -14,7 +14,8 @@ namespace PEIKTS {
         private GameObject _obj,
                            _target;
         public PEIKnifer_Flag Flag;
-        private PEIKnifer_Delegate_Void_Void _del;
+        private PEIKnifer_Delegate_Void_Void _del,
+                                             _callBack;
         private Vector3 _targetPos,
                         _targetOul,
                         _oldPos,
@@ -27,14 +28,14 @@ namespace PEIKTS {
         private float _moveSpeed, _rotSpeed, deltaTime;
         private bool _needRotate;
 
-        public PEIMEN_STC_Trans(GameObject obj, GameObject target, bool needRotate, float moveSpeed,float rotSpeed, PEIKnifer_L l)
+        public PEIMEN_STC_Trans(GameObject obj, GameObject target, bool needRotate, float moveSpeed,float rotSpeed, PEIKnifer_L l,PEIKnifer_Delegate_Void_Void callBackT)
         {
-            NormalInit(obj, needRotate, moveSpeed,rotSpeed,l);
+            NormalInit(obj, needRotate, moveSpeed,rotSpeed,l,callBackT);
             _target = target;
         }
-        public PEIMEN_STC_Trans(GameObject obj, bool needRotate, float moveSpeed, float rotSpeed, Vector3 targetPos, Quaternion targetRot, PEIKnifer_L l)
+        public PEIMEN_STC_Trans(GameObject obj, bool needRotate, float moveSpeed, float rotSpeed, Vector3 targetPos, Quaternion targetRot, PEIKnifer_L l, PEIKnifer_Delegate_Void_Void callBackT)
         {
-            NormalInit(obj, needRotate, moveSpeed, rotSpeed, l);
+            NormalInit(obj, needRotate, moveSpeed, rotSpeed, l, callBackT);
             _targetPos = targetPos;
             _targetRot = targetRot;
         }
@@ -44,8 +45,9 @@ namespace PEIKTS {
         //{
         //}
 
-        private void NormalInit(GameObject obj, bool needRotate,float speed,float rotSpeed,PEIKnifer_L l)
+        private void NormalInit(GameObject obj, bool needRotate,float speed,float rotSpeed,PEIKnifer_L l,PEIKnifer_Delegate_Void_Void callBackT)
         {
+            _callBack = callBackT;
             _rotSpeed = rotSpeed;
             _del = PEIKNF_NullFunction.NullFunction;
             l.AddElement(Update);
@@ -91,7 +93,6 @@ namespace PEIKTS {
                 _toolQub = _oldRot;
             }
             _del = MoveStep;
-
         }
         private void MoveStep()
         {
@@ -113,6 +114,10 @@ namespace PEIKTS {
                 _obj.transform.position = _toolV3a;
                 if (_needRotate)
                     _obj.transform.rotation = _toolQua;
+                if (Vector3.Distance(_toolV3a, _toolV3b) <= 0 && Quaternion.Angle(_toolQua, _toolQub) <= 0)
+                {
+                    _callBack();
+                }
             });
         }
 

@@ -11,7 +11,7 @@ public class Test : PEIKnifer_L
     public override void Awake()
     {
         base.Awake();
-        trans = new PEIMEN_STC_Trans(transform.gameObject, target,true,5,80,this);
+        trans = new PEIMEN_STC_Trans(transform.gameObject, target,true,5,80,this, CallBack);
     }
     void Start()
     {
@@ -22,5 +22,9 @@ public class Test : PEIKnifer_L
     public override void Update()
     {
         base.Update();
+    }
+    public void CallBack()
+    {
+        PEIKDE.Log("Obj Reset Done !!");
     }
 }
