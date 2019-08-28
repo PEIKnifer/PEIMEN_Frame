@@ -35,6 +35,25 @@ namespace PEIKTS {
         private int _toolNum;
         private bool _needRotate,
                      _needScale;
+        private SimpleTransType _transType;
+        /// <summary>
+        /// Trans Class Init Function For Mov Rot Scl With Target
+        /// </summary>
+        /// <param name="obj">need move object</param>
+        /// <param name="target">target object</param>
+        /// <param name="needRotate">whether need rotate</param>
+        /// <param name="needScale">whether need scale</param>
+        /// <param name="moveSpeed">object move speed</param>
+        /// <param name="rotSpeed">object rotate speed</param>
+        /// <param name="scaleSpeed">object scale speed</param>
+        /// <param name="l">base class(need Type of PEIKnifer_L class)</param>
+        /// <param name="callBackT">move function callback function</param>
+        /// <param name="type">object move type</param>
+        public PEIMEN_STC_Trans(GameObject obj, GameObject target, bool needRotate, bool needScale, float moveSpeed, float rotSpeed, float scaleSpeed, PEIKnifer_L l, PEIKnifer_Delegate_Void_Void callBackT, SimpleTransType type)
+        {
+            NormalInit(obj, needRotate, needScale, moveSpeed, rotSpeed, scaleSpeed, l, callBackT, type);
+            _target = target;
+        }
         /// <summary>
         /// Trans Class Init Function For Mov Rot Scl With Target
         /// </summary>
@@ -49,7 +68,23 @@ namespace PEIKTS {
         /// <param name="callBackT">move function callback function</param>
         public PEIMEN_STC_Trans(GameObject obj, GameObject target, bool needRotate, bool needScale, float moveSpeed,float rotSpeed,float scaleSpeed, PEIKnifer_L l,PEIKnifer_Delegate_Void_Void callBackT)
         {
-            NormalInit(obj, needRotate, needScale, moveSpeed,rotSpeed, scaleSpeed, l,callBackT);
+            NormalInit(obj, needRotate, needScale, moveSpeed,rotSpeed, scaleSpeed, l,callBackT, SimpleTransType.MoveTowards);
+            _target = target;
+        }
+        /// <summary>
+        /// Trans Class Init Function For Mov Rot With Target(need use scale , please use another function)
+        /// </summary>
+        /// <param name="obj">need move object</param>
+        /// <param name="target">target object</param>
+        /// <param name="needRotate">whether need rotate</param>
+        /// <param name="moveSpeed">object move speed</param>
+        /// <param name="rotSpeed">object rotate speed</param>
+        /// <param name="l">base class(need Type of PEIKnifer_L class)</param>
+        /// <param name="callBackT">move function callback function</param>
+        /// <param name="type">object move type</param>
+        public PEIMEN_STC_Trans(GameObject obj, GameObject target, bool needRotate, float moveSpeed, float rotSpeed, PEIKnifer_L l, PEIKnifer_Delegate_Void_Void callBackT, SimpleTransType type)
+        {
+            NormalInit(obj, needRotate, false, moveSpeed, rotSpeed, 100, l, callBackT, type);
             _target = target;
         }
         /// <summary>
@@ -64,7 +99,7 @@ namespace PEIKTS {
         /// <param name="callBackT">move function callback function</param>
         public PEIMEN_STC_Trans(GameObject obj, GameObject target, bool needRotate, float moveSpeed, float rotSpeed, PEIKnifer_L l, PEIKnifer_Delegate_Void_Void callBackT)
         {
-            NormalInit(obj, needRotate,false, moveSpeed, rotSpeed,100, l, callBackT);
+            NormalInit(obj, needRotate,false, moveSpeed, rotSpeed,100, l, callBackT, SimpleTransType.MoveTowards);
             _target = target;
         }
         /// <summary>
@@ -80,7 +115,7 @@ namespace PEIKTS {
         /// <param name="callBackT">move function callback function</param>
         public PEIMEN_STC_Trans(GameObject obj, bool needRotate, float moveSpeed, float rotSpeed, Vector3 targetPos, Quaternion targetRot, PEIKnifer_L l, PEIKnifer_Delegate_Void_Void callBackT)
         {
-            NormalInit(obj, needRotate,false, moveSpeed, rotSpeed,100, l, callBackT);
+            NormalInit(obj, needRotate,false, moveSpeed, rotSpeed,100, l, callBackT, SimpleTransType.MoveTowards);
             _targetPos = targetPos;
             _targetRot = targetRot;
         }
@@ -90,8 +125,9 @@ namespace PEIKTS {
         //{
         //}
 
-        private void NormalInit(GameObject obj, bool needRotate,bool needScale,float speed,float rotSpeed,float scaleSpeed,PEIKnifer_L l,PEIKnifer_Delegate_Void_Void callBackT)
+        private void NormalInit(GameObject obj, bool needRotate,bool needScale,float speed,float rotSpeed,float scaleSpeed,PEIKnifer_L l,PEIKnifer_Delegate_Void_Void callBackT, SimpleTransType type)
         {
+            _transType = type;
             _needScale = needScale;
             _scaleSpeed = scaleSpeed;
             _callBack = callBackT;
@@ -159,29 +195,41 @@ namespace PEIKTS {
             Loom.RunAsync(() =>
             {
                 int  toolNum = 0;
-                _toolV3a = Vector3.MoveTowards(_toolV3a, _toolV3b, _moveSpeed*PEIKTM.DeltaTime);
+                if (_transType == SimpleTransType.MoveTowards)
+                    _toolV3a = Vector3.MoveTowards(_toolV3a, _toolV3b, _moveSpeed * PEIKTM.DeltaTime);
+                else
+                    _toolV3a = Vector3.Lerp(_toolV3a, _toolV3b, _moveSpeed * PEIKTM.DeltaTime);
                 if (_needRotate)
                 {
-                    _toolQua = Quaternion.RotateTowards(_toolQua, _toolQub, _rotSpeed * PEIKTM.DeltaTime);
-                }
+                    if (_transType == SimpleTransType.MoveTowards)
+                        _toolQua = Quaternion.RotateTowards(_toolQua, _toolQub, _rotSpeed * PEIKTM.DeltaTime);
+                    else
+                        _toolQua = Quaternion.Lerp(_toolQua, _toolQub, _rotSpeed * PEIKTM.DeltaTime);
+}
                 if (_needScale)
                 {
-                    _toolS3a = Vector3.MoveTowards(_toolS3a, _toolS3b, _scaleSpeed * PEIKTM.DeltaTime);
+                    if (_transType == SimpleTransType.MoveTowards)
+                        _toolS3a = Vector3.MoveTowards(_toolS3a, _toolS3b, _scaleSpeed * PEIKTM.DeltaTime);
+                    else
+                        _toolS3a = Vector3.Lerp (_toolS3a, _toolS3b, _scaleSpeed * PEIKTM.DeltaTime);
                 }
                 //if (Vector3.Distance(_toolV3a, _toolV3b) <= 0 && !_needRotate)
                 //    _del = PEIKNF_NullFunction.NullFunction;
                 //else if (Vector3.Distance(_toolV3a, _toolV3b) <= 0&& Quaternion.Angle(_toolQua, _toolQub) <= 0)
                 //    _del = PEIKNF_NullFunction.NullFunction;
-                if (Quaternion.Angle(_toolQua, _toolQub) <= 0 || !_needRotate)
+                if (Quaternion.Angle(_toolQua, _toolQub) <= 0.01 || !_needRotate)
                 {
+                    _toolQua = _toolQub;
                     toolNum++;
                 }
-                if (Vector3.Distance(_toolV3a, _toolV3b) <= 0)
+                if (Vector3.Distance(_toolV3a, _toolV3b) <= 0.01)
                 {
+                    _toolV3a = _toolV3b;
                     toolNum++;
                 }
-                if (Vector3.Distance(_toolS3a, _toolS3b) <= 0||!_needScale)
+                if (Vector3.Distance(_toolS3a, _toolS3b) <= 0.01||!_needScale)
                 {
+                    _toolS3a = _toolS3b;
                     toolNum++;
                 }
                 if (toolNum >= 3)
@@ -259,6 +307,10 @@ namespace PEIKTS {
         {
             return _del;
         }
+        public void ChangeTransType(SimpleTransType type)
+        {
+            _transType = type;
+        }
         // Update is called once per frame
         private void Update()
         {
@@ -266,5 +318,10 @@ namespace PEIKTS {
             _del();
             //PEIKDE.Log(_del.Target.ToString());
         }
+    }
+    public enum SimpleTransType
+    {
+        MoveTowards,
+        Lerp
     }
 }
