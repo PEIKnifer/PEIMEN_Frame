@@ -171,6 +171,15 @@ public class PEIKnifer_Singleton : PEIKnifer
         }
         return t;
     }
+    protected static T GetIns<T> (T obj) where T : PEIKnifer
+    {
+        if (!obj)
+        {
+            var g = new GameObject("PEIMEN_Singleton");
+            obj = g.AddComponent<T>();
+        }
+        return obj;
+    }
 }
 #endregion
 
