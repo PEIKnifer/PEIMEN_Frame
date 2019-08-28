@@ -25,6 +25,10 @@ public class Test : PEIKnifer_L
     }
     public void CallBack()
     {
-        PEIKDE.Log("Obj Reset Done !!");
+        if (trans.Flag.Flag)
+        {
+            trans.Flag.Flag = false;
+            PEIKDE.Log("Obj Reset Done !!");
+        }
     }
 }

@@ -166,7 +166,7 @@ namespace PEIKTS {
                 }
                 if (_needScale)
                 {
-                    _toolS3a = Vector3.MoveTowards(_toolS3a, _toolS3b, _moveSpeed * PEIKTM.DeltaTime);
+                    _toolS3a = Vector3.MoveTowards(_toolS3a, _toolS3b, _scaleSpeed * PEIKTM.DeltaTime);
                 }
                 //if (Vector3.Distance(_toolV3a, _toolV3b) <= 0 && !_needRotate)
                 //    _del = PEIKNF_NullFunction.NullFunction;
