@@ -18,7 +18,7 @@ public class PEIMEN_ST_CPU : PEIKnifer_Singleton
                 }
                 return _ins;
             }
-            private set { _ins = value}
+            private set { _ins = value; }
         }
 
         public float DeltaTime { get; private set; }
