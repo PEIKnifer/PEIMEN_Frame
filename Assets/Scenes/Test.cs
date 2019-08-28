@@ -11,7 +11,7 @@ public class Test : PEIKnifer_L
     public override void Awake()
     {
         base.Awake();
-        trans = new PEIMEN_STC_Trans(transform.gameObject, target,true,5,80,this, CallBack);
+        trans = new PEIMEN_STC_Trans(transform.gameObject, target,true,true,5,80,10,this, CallBack);
     }
     void Start()
     {
