@@ -31,7 +31,8 @@ namespace PEIKTS {
         private float _moveSpeed, 
                       _rotSpeed,
                       _scaleSpeed,
-                      _deltaTime;
+                      _deltaTime,
+                      _doneDis;
         private int _toolNum;
         private bool _needRotate,
                      _needScale;
@@ -127,6 +128,7 @@ namespace PEIKTS {
 
         private void NormalInit(GameObject obj, bool needRotate,bool needScale,float speed,float rotSpeed,float scaleSpeed,PEIKnifer_L l,PEIKnifer_Delegate_Void_Void callBackT, SimpleTransType type)
         {
+            _doneDis = 0.01f;
             _transType = type;
             _needScale = needScale;
             _scaleSpeed = scaleSpeed;
@@ -217,17 +219,17 @@ namespace PEIKTS {
                 //    _del = PEIKNF_NullFunction.NullFunction;
                 //else if (Vector3.Distance(_toolV3a, _toolV3b) <= 0&& Quaternion.Angle(_toolQua, _toolQub) <= 0)
                 //    _del = PEIKNF_NullFunction.NullFunction;
-                if (Quaternion.Angle(_toolQua, _toolQub) <= 0.01 || !_needRotate)
+                if (Quaternion.Angle(_toolQua, _toolQub) <= _doneDis || !_needRotate)
                 {
                     _toolQua = _toolQub;
                     toolNum++;
                 }
-                if (Vector3.Distance(_toolV3a, _toolV3b) <= 0.01)
+                if (Vector3.Distance(_toolV3a, _toolV3b) <= _doneDis)
                 {
                     _toolV3a = _toolV3b;
                     toolNum++;
                 }
-                if (Vector3.Distance(_toolS3a, _toolS3b) <= 0.01||!_needScale)
+                if (Vector3.Distance(_toolS3a, _toolS3b) <= _doneDis || !_needScale)
                 {
                     _toolS3a = _toolS3b;
                     toolNum++;
@@ -307,9 +309,31 @@ namespace PEIKTS {
         {
             return _del;
         }
-        public void ChangeTransType(SimpleTransType type)
+        public void SetTransType(SimpleTransType type)
         {
             _transType = type;
+        }
+        public void SetTriggerDis(float dis)
+        {
+            _doneDis = dis;
+        }
+        public void SetRotateSpeed(float speed)
+        {
+            _rotSpeed = speed;
+        }
+        public void SetMoveSpeed(float speed)
+        {
+            _moveSpeed = speed;
+        }
+        public void SetScaleSpeed(float speed)
+        {
+            _scaleSpeed = speed;
+        }
+        public void SetSpeed(float moveSpeed, float rotSpeed, float sclSpeed)
+        {
+            _rotSpeed = rotSpeed;
+            _moveSpeed = moveSpeed;
+            _scaleSpeed = sclSpeed;
         }
         // Update is called once per frame
         private void Update()
