@@ -171,13 +171,16 @@ public class PEIKnifer_Singleton : PEIKnifer
         }
         return t;
     }
-    protected static T GetIns<T> (T obj) where T : PEIKnifer
+    protected static T GetIns<T>() where T : PEIKnifer
     {
-        if (!obj)
-        {
-            var g = new GameObject("PEIMEN_Singleton");
-            obj = g.AddComponent<T>();
-        }
+        //if (!obj)
+        //{
+        T obj;
+        var g = new GameObject("PEIMEN_Singleton");
+        obj = (T)g.AddComponent<T>();
+        Type t = typeof(T);
+        PEIKDE.Log("Singleton", "Get Ins Init With " + t);
+        // }
         return obj;
     }
 }

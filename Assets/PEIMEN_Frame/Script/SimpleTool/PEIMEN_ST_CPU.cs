@@ -13,8 +13,8 @@ public class PEIMEN_ST_CPU : PEIKnifer_Singleton
             {
                 if (!_ins)
                 {
-                    _ins = GetIns<PEIMEN_ST_CPU>(_ins);
-                    Init();
+                    _ins = GetIns<PEIMEN_ST_CPU>();
+                    //Init();
                 }
                 return _ins;
             }
@@ -23,7 +23,8 @@ public class PEIMEN_ST_CPU : PEIKnifer_Singleton
 
         public float DeltaTime { get; private set; }
         public float RealtimeSinceStartup { get; private set; }
-        private float tctToolNum;
+        private float tctToolNum,
+                      tctToolNumB;
 
         private static void Init()
         {
@@ -34,21 +35,32 @@ public class PEIMEN_ST_CPU : PEIKnifer_Singleton
             DeltaTime = Time.deltaTime;
             RealtimeSinceStartup = Time.realtimeSinceStartup;
         }
-        public void SpeedToolDeltaTime(float Max, float Min, float incremental, float resistance,float speed,STCPUDel callBack)
+        public float SpeedToolDeltaTime(float Max, float Min,float acc, Vector3 ZPos,Vector3 pos, Vector3 tar,float speed)
         {
-            Loom.RunAsync(() =>
-            {
-                speed += incremental * DeltaTime - resistance * DeltaTime;
+                float tctToolNum = Vector3.Distance(pos, tar);
+                float tctToolNumB = Vector3.Distance(ZPos, tar);
+                speed = speed + ((tctToolNum > (tctToolNumB * 0.5f) ? acc * DeltaTime : -acc * DeltaTime));
                 if (speed > Max)
                     speed = Max;
                 else if(speed< Min)
                     speed = Min;
-            });
-            Loom.QueueOnMainThread(() =>
-            {
-                callBack(speed);
-            });
+                PEIKDE.Log("PSC","Speed Tool Done With "+speed);
+            return speed;
+                
         }
+        public float SpeedCurveTransTool(float Max, float Min, float acc, Vector3 ZPos, Vector3 pos, Vector3 tar, float speed,bool flag)
+        {
+           // PEIKDE.Log("PSC", "Curve Tool Running");
+            if (flag)
+            {
+                return SpeedToolDeltaTime(Max, Min, acc, ZPos, pos, tar, speed);
+            }
+            else
+            {
+                return SpeedToolDeltaTime(Max, Min, acc, tar, pos, ZPos, speed);
+            }
+        }
+
         public delegate void STCPUDel(float speed);
     }
 }

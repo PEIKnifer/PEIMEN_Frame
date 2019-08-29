@@ -17,6 +17,7 @@ namespace PEIKTS {
         private PEIKnifer_Timer t;
         private PEIKnifer_Delegate_Void_Void _del,
                                              _callBack;
+        private TransModel model;
         private Vector3 _targetPos,
                         _targetOul,
                         _oldPos,
@@ -130,7 +131,6 @@ namespace PEIKTS {
 
         private void NormalInit(GameObject obj, bool needRotate,bool needScale,float speed,float rotSpeed,float scaleSpeed,PEIKnifer_L l,PEIKnifer_Delegate_Void_Void callBackT, SimpleTransType type)
         {
-
             t = new PEIKnifer_Timer();
             _loopLifeTime = 0;
             _doneDis = 0.01f;
@@ -151,6 +151,10 @@ namespace PEIKTS {
             _oldPos = _obj.transform.position;
             _oldScl = _obj.transform.localScale;
             _oldRot = _obj.transform.rotation;
+            model = new TransModel();
+            model.Target = _target;
+            model.OldPos = _oldPos;
+            model.Object = _obj;
             PEIKTM.WeekUp();
         }
         /// <summary>
@@ -343,6 +347,17 @@ namespace PEIKTS {
             _loopLifeTime = loopTimeLife;
             _callBack = LoopCallBack;
         }
+        public void SetTransValue(TransModel model)
+        {
+            _target = model.Target;
+            _obj = model.Object;
+            _oldPos = _obj.transform.position;
+            _oldScl = _obj.transform.localScale;
+            _oldRot = _obj.transform.rotation;
+            _moveSpeed = model.MoveSpeed ;
+            _rotSpeed = model.RotSpeed ;
+            _scaleSpeed = model.SclSpeed ;
+        }
         private void LoopCallBack()
         {
             //PEIKDE.Log("SCT", "Loop Call Back Trigger!");
@@ -353,6 +368,17 @@ namespace PEIKTS {
         {
             Flag.Flag = !Flag.Flag;
         }
+        public TransModel GetModel()
+        {
+            model.Target = _target;
+            model.OldPos = _oldPos;
+            model.Object = _obj;
+            model.MoveSpeed = _moveSpeed;
+            model.RotSpeed = _rotSpeed;
+            model.SclSpeed = _scaleSpeed;
+            return model;
+        }
+        
         // Update is called once per frame
         public void TransUpdate()
         {
@@ -366,5 +392,11 @@ namespace PEIKTS {
     {
         MoveTowards,
         Lerp
+    }
+    public class TransModel
+    {
+        public GameObject Object, Target;
+        public Vector3 OldPos;
+        public float MoveSpeed,RotSpeed,SclSpeed;
     }
 }
