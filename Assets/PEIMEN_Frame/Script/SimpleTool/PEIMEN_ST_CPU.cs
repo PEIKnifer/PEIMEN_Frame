@@ -22,6 +22,7 @@ public class PEIMEN_ST_CPU : PEIKnifer_Singleton
         }
 
         public float DeltaTime { get; private set; }
+        public float RealtimeSinceStartup { get; private set; }
         private float tctToolNum;
 
         private static void Init()
@@ -31,6 +32,7 @@ public class PEIMEN_ST_CPU : PEIKnifer_Singleton
         void Update()
         {
             DeltaTime = Time.deltaTime;
+            RealtimeSinceStartup = Time.realtimeSinceStartup;
         }
         public void SpeedToolDeltaTime(float Max, float Min, float incremental, float resistance,float speed,STCPUDel callBack)
         {

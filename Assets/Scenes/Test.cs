@@ -12,7 +12,7 @@ public class Test : PEIKnifer_L
     {
         base.Awake();
         trans = new PEIMEN_STC_Trans(transform.gameObject, target,true,true,1,1f,1f,this, CallBack, SimpleTransType.Lerp);
-
+        trans.SetLoopCallBack(4f);
     }
     void Start()
     {

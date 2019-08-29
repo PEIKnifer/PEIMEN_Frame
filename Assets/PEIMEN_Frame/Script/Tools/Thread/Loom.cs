@@ -57,7 +57,7 @@ namespace PEIKTS
                 initialized = true;
                 var g = new GameObject("Loom");
                 _current = g.AddComponent<Loom>();
-                PEIKDE.Log("Loom", "Init Complate");
+                //PEIKDE.Log("Loom", "Init Complate");
             }
 
         }

@@ -282,7 +282,7 @@ public class PEIKTM : PEIKnifer
         {
             _ins = Instantiate(new GameObject()).AddComponent<PEIKTM>();
             DeltaTime = Time.deltaTime;
-            PEIKDE.Log("PTM", "PEIKTM Time Class Week Up");
+            //PEIKDE.Log("PTM", "PEIKTM Time Class Week Up");
             return true;
         }
         catch {

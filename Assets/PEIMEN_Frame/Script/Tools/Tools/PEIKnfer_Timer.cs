@@ -13,6 +13,7 @@
 /////////////////////////////////////////////////
 
 
+using PEIKTS;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,17 +27,66 @@ public class PEIKnifer_Timer  {
     public float oTime;
     public bool timeRunningFlag;
     public float oStarUp;
+    private PEIKnifer_L_Del _callBack;
+    private PEIKnifer_L _l;
+    private bool _done;
+    public bool Loop;
+
     #endregion
 
+    public PEIKnifer_Timer() { }
+
+    /// <summary>
+    /// Entrust Timer With A Call Back
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="isLoop"></param>
+    /// <param name="l"></param>
+    /// <param name="func"></param>
+    public void EntrustTimer(float value,bool isLoop,PEIKnifer_L l,PEIKnifer_L_Del func)
+    {
+        //PEIKDE.Log("ETimer Init");
+        Loop = isLoop;
+        SetTime(value);
+        Clear();
+        _callBack = func;
+        l.AddElement(TimerUpdate);
+        _l = l;
+    }
+    private void TimerUpdate()
+    {
+        Loom.RunAsync(() =>
+        {
+            if (Timer())
+            {
+                _done = true;
+                //PEIKDE.Log("Timer","Timer Update Done");
+            }
+            Loom.QueueOnMainThread(() =>
+            {
+                if (_done)
+                {
+                    Clear();
+                    //PEIKDE.Log("Timer", "Timer CallBack Trigger!!");
+                    if (!Loop)
+                        _l.RemoveElement(TimerUpdate);
+                    _callBack();
+                    _done = false;
+                }
+            });
+        });
+        
+    }
     #region Inherent Function
     public void SetTime(float value)
     {
-        oStarUp = Time.realtimeSinceStartup;
+        oStarUp = PEIMEN_ST_CPU.Ins.RealtimeSinceStartup;
         runTime = value;
         time = value;
         oTime = time;
         timeRunningFlag = false;
     }
+
 
     public bool Timer()
     {
@@ -55,11 +105,12 @@ public class PEIKnifer_Timer  {
         else
         {
             timeRunningFlag = true;
-            time -= Time.deltaTime;
+            time -= PEIMEN_ST_CPU.Ins.DeltaTime;
         }
         runTime = time;
         return false;
     }
+    
     public bool RealTimer()
     {
 
@@ -77,11 +128,11 @@ public class PEIKnifer_Timer  {
         else
         {
             timeRunningFlag = true;
-            time -= (Time.realtimeSinceStartup-oStarUp);
+            time -= (PEIMEN_ST_CPU.Ins.RealtimeSinceStartup - oStarUp);
         }
         runTime = time;
 
-        oStarUp = Time.realtimeSinceStartup;
+        oStarUp = PEIMEN_ST_CPU.Ins.RealtimeSinceStartup;
 
         return false;
        
@@ -90,11 +141,12 @@ public class PEIKnifer_Timer  {
 
     public void Clear()
     {
-        oStarUp = Time.realtimeSinceStartup;
+        oStarUp = PEIMEN_ST_CPU.Ins.RealtimeSinceStartup;
         //Debug.Log("OTime==" + oTime);
         time = oTime;
         timeRunningFlag = false;
     }
+   
     public float GetRunTime()
     {
         return time;

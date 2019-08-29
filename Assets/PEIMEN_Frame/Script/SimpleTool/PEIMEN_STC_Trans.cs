@@ -9,11 +9,12 @@ namespace PEIKTS {
     /// <summary>
     /// Simple Tool Class Module For Simple Transform
     /// </summary>
-    public class PEIMEN_STC_Trans : PEIKnifer_Origin
+    public class PEIMEN_STC_Trans : PEIKnifer_L
     {
         private GameObject _obj,
                            _target;
         public PEIKnifer_Flag Flag;
+        private PEIKnifer_Timer t;
         private PEIKnifer_Delegate_Void_Void _del,
                                              _callBack;
         private Vector3 _targetPos,
@@ -32,7 +33,8 @@ namespace PEIKTS {
                       _rotSpeed,
                       _scaleSpeed,
                       _deltaTime,
-                      _doneDis;
+                      _doneDis,
+                      _loopLifeTime;
         private int _toolNum;
         private bool _needRotate,
                      _needScale;
@@ -128,6 +130,9 @@ namespace PEIKTS {
 
         private void NormalInit(GameObject obj, bool needRotate,bool needScale,float speed,float rotSpeed,float scaleSpeed,PEIKnifer_L l,PEIKnifer_Delegate_Void_Void callBackT, SimpleTransType type)
         {
+
+            t = new PEIKnifer_Timer();
+            _loopLifeTime = 0;
             _doneDis = 0.01f;
             _transType = type;
             _needScale = needScale;
@@ -135,7 +140,9 @@ namespace PEIKTS {
             _callBack = callBackT;
             _rotSpeed = rotSpeed;
             _del = PEIKNF_NullFunction.NullFunction;
+            l.AddElement(TransUpdate);
             l.AddElement(Update);
+            Awake();
             _needRotate = needRotate;
             _moveSpeed = speed;
             
@@ -236,33 +243,28 @@ namespace PEIKTS {
                 }
                 if (toolNum >= 3)
                 {
+                    //PEIKDE.Log("PST","Trans Done!");
                     _del = PEIKNF_NullFunction.NullFunction;
+                    _toolNum = 3;
                 }
-            });
-            Loom.QueueOnMainThread(() =>
-            {
-                _toolNum = 0;
-                _obj.transform.position = _toolV3a;
-                if (_needRotate)
-                    _obj.transform.rotation = _toolQua;
-                if (_needScale)
-                    _obj.transform.localScale = _toolS3a;
-                if (Quaternion.Angle(_toolQua, _toolQub) <= 0 || !_needRotate)
+                else
                 {
-                    _toolNum++;
+                    _toolNum = 0;
                 }
-                if (Vector3.Distance(_toolV3a, _toolV3b) <= 0)
+
+                Loom.QueueOnMainThread(() =>
                 {
-                    _toolNum++;
-                }
-                if (Vector3.Distance(_toolS3a, _toolS3b) <= 0 || !_needScale)
-                {
-                    _toolNum++;
-                }
-                if (_toolNum >= 3)
-                {
-                    _callBack();
-                }
+                    _obj.transform.position = _toolV3a;
+                    if (_needRotate)
+                        _obj.transform.rotation = _toolQua;
+                    if (_needScale)
+                        _obj.transform.localScale = _toolS3a;
+                   
+                    if (_toolNum >= 3)
+                    {
+                        _callBack();
+                    }
+                });
             });
         }
 
@@ -335,9 +337,26 @@ namespace PEIKTS {
             _moveSpeed = moveSpeed;
             _scaleSpeed = sclSpeed;
         }
-        // Update is called once per frame
-        private void Update()
+        public void SetLoopCallBack(float loopTimeLife)
         {
+            //PEIKDE.Log("SCT", "Set Loop Call Back!");
+            _loopLifeTime = loopTimeLife;
+            _callBack = LoopCallBack;
+        }
+        private void LoopCallBack()
+        {
+            //PEIKDE.Log("SCT", "Loop Call Back Trigger!");
+            
+            t.EntrustTimer(_loopLifeTime, false, this, ()=> { Flag.Flag = !Flag.Flag; });
+        }
+        public void GetLoopCallBack()
+        {
+            Flag.Flag = !Flag.Flag;
+        }
+        // Update is called once per frame
+        public void TransUpdate()
+        {
+            //Update();
             //PEIKDE.Log("STC", "Update Running!");
             _del();
             //PEIKDE.Log(_del.Target.ToString());

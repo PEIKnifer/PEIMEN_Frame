@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using PEIKTS;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,19 +29,22 @@ public class PEIKniferDebug : PEIKnifer {
     //       //    Debug.Log("[PEIKTT] as");
     //       //}
     //   }
-    private void AddMessage(string message)
+    private void AddMessage(object message)
     {
         try
         {
-            for (int i = MsgTL.Count - 1; i >= 0; i--)
+            Loom.RunAsync(() =>
             {
-                if (i - 1 > 0)
-                    MsgTL[i].text = MsgTL[i - 1].text;
-                else
+                for (int i = MsgTL.Count - 1; i >= 0; i--)
                 {
-                    MsgTL[i].text = message;
+                    if (i - 1 > 0)
+                        MsgTL[i].text = MsgTL[i - 1].text;
+                    else
+                    {
+                        MsgTL[i].text = message.ToString();
+                    }
                 }
-            }
+            });
         }
         catch
         {

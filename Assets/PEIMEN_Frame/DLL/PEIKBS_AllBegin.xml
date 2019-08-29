@@ -4,6 +4,11 @@
         <name>PEIKBS_AllBegin</name>
     </assembly>
     <members>
+        <member name="T:PEIKDE">
+            <summary>
+            PEIKnifer private class for Debug
+            </summary>
+        </member>
         <member name="T:PEIKnifer">
             <summary>
             PEIKnifer Base Mono Class
@@ -12,6 +17,48 @@
         <member name="M:PEIKnifer.NullFunction">
             <summary>
             Origin Null Function
+            </summary>
+        </member>
+        <member name="T:PEIKTS.PEIKnifer_L">
+            <summary>
+            Loom STC Script Base Class
+            </summary>
+        </member>
+        <member name="M:PEIKTS.PEIKnifer_L.Awake">
+            <summary>
+            Rewrite Mono Base Awake To Init _del For Depend Class
+            </summary>
+        </member>
+        <member name="M:PEIKTS.PEIKnifer_L.Update">
+            <summary>
+            Rewrite Mono Base Update To Running _del For Depend Class
+            </summary>
+        </member>
+        <member name="M:PEIKTS.PEIKnifer_L.AddElement(PEIKTS.PEIKnifer_L_Del)">
+            <summary>
+            Add Element Function
+            </summary>
+            <param name="func">the func which need run in update</param>
+        </member>
+        <member name="M:PEIKTS.PEIKnifer_L.RemoveElement(PEIKTS.PEIKnifer_L_Del)">
+            <summary>
+            Remove Element Function
+            </summary>
+            <param name="func">the func which need remove in update</param>
+        </member>
+        <member name="T:PEIKTS.PEIKnifer_L_Del">
+            <summary>
+            PEIKnifer_L Class Support delegate
+            </summary>
+        </member>
+        <member name="T:PEIKnifer_Origin">
+            <summary>
+            All Need Check PEIKFB class
+            </summary>
+        </member>
+        <member name="T:PEIKnifer_Interface">
+            <summary>
+            All Need Check PEIKFB Interface
             </summary>
         </member>
     </members>
