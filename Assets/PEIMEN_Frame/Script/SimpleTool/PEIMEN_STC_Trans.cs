@@ -414,7 +414,10 @@ namespace PEIKTS {
         public TransModel GetModel()
         {
             model.Target = _target;
-            model.OldPos = _oldPos;
+            if (!_parTrans)
+                model.OldPos = _oldPos;
+            else
+                model.OldPos = _oldPosObj.transform.position;
             model.Object = _obj;
             model.MoveSpeed = _moveSpeed;
             model.RotSpeed = _rotSpeed;

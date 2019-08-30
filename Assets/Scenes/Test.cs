@@ -8,6 +8,7 @@ public class Test : PEIKnifer_L
     public GameObject target,OldPos;
     PEIMEN_STC_Trans trans;
     public float speed;
+    private float _disFlag;
     // Start is called before the first frame update
     public override void Awake()
     {
@@ -15,6 +16,7 @@ public class Test : PEIKnifer_L
         trans = new PEIMEN_STC_Trans(transform.gameObject, target,true,true,10,10f,1f,this, CallBack, SimpleTransType.MoveTowards);
         trans.SetParTrans(OldPos);
         trans.SetLoopCallBack(4f);
+        _disFlag = Vector3.Distance(target.transform.position, OldPos.transform.position);
     }
     void Start()
     {
@@ -32,7 +34,8 @@ public class Test : PEIKnifer_L
                                                   trans.GetModel().OldPos,
                                                   trans.GetModel().Object.transform.position,
                                                   trans.GetModel().Target.transform.position,
-                                                  trans.GetModel().MoveSpeed,
+                                                  trans.GetModel().MoveSpeed, 
+                                                  _disFlag,
                                                   trans.Flag.Flag);
             
                 SetTime(speed);
