@@ -264,7 +264,7 @@ namespace PEIKTS {
 
         private void BeginStep()
         {
-            PEIKDE.Log("BeginFunc Running!");
+            //PEIKDE.Log("BeginFunc Running!");
             if (_target)
                 _toolV3b = _target.transform.position;
             else
@@ -282,7 +282,7 @@ namespace PEIKTS {
                 //_toolS3a = _obj.transform.localScale;
                 _toolS3b = _target.transform.localScale;
             }
-            PEIKDE.Log("Moving!");
+            //PEIKDE.Log("Moving!");
             MoveStep();
         }
         private void BackStep()
