@@ -12,7 +12,8 @@ namespace PEIKTS {
     public class PEIMEN_STC_Trans : PEIKnifer_L
     {
         private GameObject _obj,
-                           _target;
+                           _target,
+                           _oldPosObj;
         public PEIKnifer_Flag Flag;
         private PEIKnifer_Timer t;
         private PEIKnifer_Delegate_Void_Void _del,
@@ -38,7 +39,8 @@ namespace PEIKTS {
                       _loopLifeTime;
         private int _toolNum;
         private bool _needRotate,
-                     _needScale;
+                     _needScale,
+                     _parTrans;
         private SimpleTransType _transType;
         /// <summary>
         /// Trans Class Init Function For Mov Rot Scl With Target
@@ -189,16 +191,25 @@ namespace PEIKTS {
         public void BackFunc()
         {
             _toolV3a = _obj.transform.position;
-            _toolV3b = _oldPos;
+            if (!_parTrans)
+                _toolV3b = _oldPos;
+            else
+                _toolV3b = _oldPosObj.transform.position;
             if (_needRotate)
             {
                 _toolQua = _obj.transform.rotation;
-                _toolQub = _oldRot;
+                if (!_parTrans)
+                    _toolQub = _oldRot;
+                else
+                    _toolQub = _oldPosObj.transform.rotation;
             }
             if (_needScale)
             {
                 _toolS3a = _obj.transform.localScale;
-                _toolS3b = _oldScl;
+                if (!_parTrans)
+                    _toolS3b = _oldScl;
+                else
+                    _toolS3b = _oldPosObj.transform.localScale;
             }
             _del = MoveStep;
         }
@@ -357,6 +368,11 @@ namespace PEIKTS {
             _moveSpeed = model.MoveSpeed ;
             _rotSpeed = model.RotSpeed ;
             _scaleSpeed = model.SclSpeed ;
+        }
+        public void SetParTrans(GameObject obj)
+        {
+            _oldPosObj = obj;
+            _parTrans = true;
         }
         private void LoopCallBack()
         {
