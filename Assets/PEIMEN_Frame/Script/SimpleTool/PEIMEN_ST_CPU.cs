@@ -44,7 +44,7 @@ public class PEIMEN_ST_CPU : PEIKnifer_Singleton
                     speed = Max;
                 else if(speed< Min)
                     speed = Min;
-                PEIKDE.Log("PSC","Speed Tool Done With "+speed);
+                //PEIKDE.Log("PSC","Speed Tool Done With "+speed);
             return speed;
                 
         }

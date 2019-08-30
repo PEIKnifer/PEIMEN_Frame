@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Test : PEIKnifer_L
 {
-    public GameObject target;
+    public GameObject target,OldPos;
     PEIMEN_STC_Trans trans;
     public float speed;
     // Start is called before the first frame update
@@ -13,6 +13,7 @@ public class Test : PEIKnifer_L
     {
         base.Awake();
         trans = new PEIMEN_STC_Trans(transform.gameObject, target,true,true,10,10f,1f,this, CallBack, SimpleTransType.MoveTowards);
+        trans.SetParTrans(OldPos);
         trans.SetLoopCallBack(4f);
     }
     void Start()

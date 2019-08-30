@@ -165,24 +165,15 @@ namespace PEIKTS {
         public void BeginFunc()
         {
             _toolV3a = _obj.transform.position;
-            if (_target)
-                _toolV3b = _target.transform.position;
-            else
-                _toolV3b = _targetPos;
             if (_needRotate)
             {
                 _toolQua = _obj.transform.rotation;
-                if (_target)
-                    _toolQub = _target.transform.rotation;
-                else
-                    _toolQub = _targetRot;
             }
             if (_needScale)
             {
                 _toolS3a = _obj.transform.localScale;
-                _toolS3b = _target.transform.localScale;
             }
-            _del = MoveStep;
+                _del = BeginStep;
         }
 
         /// <summary>
@@ -191,27 +182,15 @@ namespace PEIKTS {
         public void BackFunc()
         {
             _toolV3a = _obj.transform.position;
-            if (!_parTrans)
-                _toolV3b = _oldPos;
-            else
-                _toolV3b = _oldPosObj.transform.position;
+            _del = BackStep;
             if (_needRotate)
             {
                 _toolQua = _obj.transform.rotation;
-                if (!_parTrans)
-                    _toolQub = _oldRot;
-                else
-                    _toolQub = _oldPosObj.transform.rotation;
             }
             if (_needScale)
             {
                 _toolS3a = _obj.transform.localScale;
-                if (!_parTrans)
-                    _toolS3b = _oldScl;
-                else
-                    _toolS3b = _oldPosObj.transform.localScale;
             }
-            _del = MoveStep;
         }
         private void MoveStep()
         {
@@ -281,6 +260,54 @@ namespace PEIKTS {
                     }
                 });
             });
+        }
+
+        private void BeginStep()
+        {
+            PEIKDE.Log("BeginFunc Running!");
+            if (_target)
+                _toolV3b = _target.transform.position;
+            else
+                _toolV3b = _targetPos;
+            if (_needRotate)
+            {
+                //_toolQua = _obj.transform.rotation;
+                if (_target)
+                    _toolQub = _target.transform.rotation;
+                else
+                    _toolQub = _targetRot;
+            }
+            if (_needScale)
+            {
+                //_toolS3a = _obj.transform.localScale;
+                _toolS3b = _target.transform.localScale;
+            }
+            PEIKDE.Log("Moving!");
+            MoveStep();
+        }
+        private void BackStep()
+        {
+            if (!_parTrans)
+                _toolV3b = _oldPos;
+            else
+                _toolV3b = _oldPosObj.transform.position;
+            if (_needRotate)
+            {
+                //_toolQua = _obj.transform.rotation;
+                if (!_parTrans)
+                    _toolQub = _oldRot;
+                else
+                    _toolQub = _oldPosObj.transform.rotation;
+            }
+            if (_needScale)
+            {
+               // _toolS3a = _obj.transform.localScale;
+                if (!_parTrans)
+                    _toolS3b = _oldScl;
+                else
+                    _toolS3b = _oldPosObj.transform.localScale;
+            }
+                    MoveStep();
         }
 
         //private void RotateStep()
