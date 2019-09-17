@@ -40,7 +40,8 @@ namespace PEIKTS {
         private int _toolNum;
         private bool _needRotate,
                      _needScale,
-                     _parTrans;
+                     _parTrans,
+                     _localFlag;
         private SimpleTransType _transType;
         /// <summary>
         /// Trans Class Init Function For Mov Rot Scl With Target
@@ -164,7 +165,10 @@ namespace PEIKTS {
         /// </summary>
         public void BeginFunc()
         {
-            _toolV3a = _obj.transform.position;
+            if (!_localFlag)
+                _toolV3a = _obj.transform.position;
+            else
+                _toolV3a = _obj.transform.localPosition;
             if (_needRotate)
             {
                 _toolQua = _obj.transform.rotation;
@@ -181,7 +185,10 @@ namespace PEIKTS {
         /// </summary>
         public void BackFunc()
         {
-            _toolV3a = _obj.transform.position;
+            if (!_localFlag)
+                _toolV3a = _obj.transform.position;
+            else
+                _toolV3a = _obj.transform.localPosition;
             _del = BackStep;
             if (_needRotate)
             {
@@ -248,7 +255,10 @@ namespace PEIKTS {
 
                 Loom.QueueOnMainThread(() =>
                 {
-                    _obj.transform.position = _toolV3a;
+                    if (!_localFlag)
+                        _obj.transform.position = _toolV3a;
+                    else
+                        _obj.transform.localPosition = _toolV3a;
                     if (_needRotate)
                         _obj.transform.rotation = _toolQua;
                     if (_needScale)
@@ -261,12 +271,14 @@ namespace PEIKTS {
                 });
             });
         }
-
         private void BeginStep()
         {
             //PEIKDE.Log("BeginFunc Running!");
             if (_target)
+                if(!_localFlag)
                 _toolV3b = _target.transform.position;
+                else
+                    _toolV3b = _target.transform.localPosition;
             else
                 _toolV3b = _targetPos;
             if (_needRotate)
@@ -290,7 +302,10 @@ namespace PEIKTS {
             if (!_parTrans)
                 _toolV3b = _oldPos;
             else
+                if (!_localFlag)
                 _toolV3b = _oldPosObj.transform.position;
+            else
+                _toolV3b = _oldPosObj.transform.localPosition;
             if (_needRotate)
             {
                 //_toolQua = _obj.transform.rotation;
@@ -432,6 +447,10 @@ namespace PEIKTS {
             //PEIKDE.Log("STC", "Update Running!");
             _del();
             //PEIKDE.Log(_del.Target.ToString());
+        }
+        public void SetLocalFlag(bool flag)
+        {
+            _localFlag = flag;
         }
     }
     public enum SimpleTransType

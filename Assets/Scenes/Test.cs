@@ -14,9 +14,10 @@ public class Test : PEIKnifer_L
     {
         base.Awake();
         trans = new PEIMEN_STC_Trans(transform.gameObject, target,true,true,10,10f,1f,this, CallBack, SimpleTransType.MoveTowards);
-        trans.SetParTrans(OldPos);
-        trans.SetLoopCallBack(4f);
-        _disFlag = Vector3.Distance(target.transform.position, OldPos.transform.position);
+        //trans.SetLocalFlag(true);
+        //trans.SetParTrans(OldPos);
+        //trans.SetLoopCallBack(4f);
+       // _disFlag = Vector3.Distance(target.transform.position, OldPos.transform.position);
     }
     void Start()
     {
@@ -28,17 +29,17 @@ public class Test : PEIKnifer_L
     {
         base.Update();
         
-            speed = PEIMEN_ST_CPU.Ins.SpeedCurveTransTool(10,
-                                                  0.5f,
-                                                  2f,
-                                                  trans.GetModel().OldPos,
-                                                  trans.GetModel().Object.transform.position,
-                                                  trans.GetModel().Target.transform.position,
-                                                  trans.GetModel().MoveSpeed, 
-                                                  _disFlag,
-                                                  trans.Flag.Flag);
+            //speed = PEIMEN_ST_CPU.Ins.SpeedCurveTransTool(10,
+            //                                      0.5f,
+            //                                      2f,
+            //                                      trans.GetModel().OldPos,
+            //                                      trans.GetModel().Object.transform.position,
+            //                                      trans.GetModel().Target.transform.position,
+            //                                      trans.GetModel().MoveSpeed, 
+            //                                      _disFlag,
+            //                                      trans.Flag.Flag);
             
-                SetTime(speed);
+                //SetTime(speed);
             
     }
     private void SetTime(float speed)
