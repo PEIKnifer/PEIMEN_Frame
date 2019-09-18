@@ -167,6 +167,18 @@ namespace PEIKBF_SSP
             }
         }
 
+        // Running On Next Step Begin Step
+        protected void RefreshStep()
+        {
+            NowStep = 0;
+            for (int i = 0; i < stepBases.Count; i++)
+            {
+                stepBases[i].OperationBaseIns.OnRefresh();
+                stepBases[i].OperationPartBaseIns.Refresh();
+            }
+            BeginStep();
+        }
+
         // Running On Last Step Over 
         protected void StepOver()
         {

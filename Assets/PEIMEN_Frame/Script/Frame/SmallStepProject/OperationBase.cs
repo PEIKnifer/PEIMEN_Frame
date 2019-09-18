@@ -56,11 +56,19 @@ namespace PEIKBF_SSP
         // Running On GameObject Get Caught Function
         public abstract bool OnObjGetCaught();
 
-        // Running On Function Begin
+        /// <summary>
+        /// Running On Function Begin
+        /// </summary>
         public virtual void OnBegin() { }
 
-        // Running On Function Exit
+        /// <summary>
+        /// Running On Function Exit
+        /// </summary>
         public virtual void OnExit() { }
+        /// <summary>
+        /// Running On Function Refresh
+        /// </summary>
+        public virtual void OnRefresh() { }
 
         // Running On AutoPlay Trigger
         public virtual void AutoPlay() { }
