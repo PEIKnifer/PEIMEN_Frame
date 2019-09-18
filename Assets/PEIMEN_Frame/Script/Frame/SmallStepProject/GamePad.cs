@@ -8,16 +8,20 @@
 //
 //Create On 2019-3
 //
-//Last Update in 2019.3.19 14:57:25
+//Last Update in 2019 9 18 16:48:08
 //
 /////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System;
+using PEIKTS;
+
 namespace PEIKBF_SSP
 {
-    public abstract class GamePad : PEIKnifer
+    [Serializable]
+    public abstract class GamePad : PEIKnifer_L
     {
         #region  Inherent Member
         public static GamePad Ins;
@@ -59,10 +63,13 @@ namespace PEIKBF_SSP
             Ins = this;
             //Line = new LineRenderer();
             //_handTar = transform.Find("HandTar").gameObject;
+            AddElement(FrameUpdate);
         }
         public void FrameUpdate()
         {
+            //PEIKDE.Log("GPD","GamePad Update Runing");
             Line.gameObject.SetActive(!_hasObjFlag);
+            DrawRay();
         }
         public RaycastHit CustomDrawRay()
         {

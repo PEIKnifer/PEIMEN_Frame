@@ -56,7 +56,7 @@ namespace PEIKBF_SSP
 
         public abstract void OnStatusChange(int status);
 
-        public void Refresh()
+        public virtual void Refresh()
         {
             Status = (int)PartStatus;
         }

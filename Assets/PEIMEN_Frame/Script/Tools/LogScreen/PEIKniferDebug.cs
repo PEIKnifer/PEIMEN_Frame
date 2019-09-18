@@ -33,18 +33,15 @@ public class PEIKniferDebug : PEIKnifer {
     {
         try
         {
-            Loom.RunAsync(() =>
+            for (int i = MsgTL.Count - 1; i >= 0; i--)
             {
-                for (int i = MsgTL.Count - 1; i >= 0; i--)
+                if (i > 0)
+                    MsgTL[i].text = MsgTL[i - 1].text;
+                else
                 {
-                    if (i - 1 > 0)
-                        MsgTL[i].text = MsgTL[i - 1].text;
-                    else
-                    {
-                        MsgTL[i].text = message.ToString();
-                    }
+                    MsgTL[i].text = message.ToString();
                 }
-            });
+            }
         }
         catch
         {

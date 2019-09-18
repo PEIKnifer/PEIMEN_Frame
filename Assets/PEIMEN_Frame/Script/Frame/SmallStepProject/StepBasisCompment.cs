@@ -19,7 +19,7 @@ using UnityEngine;
 namespace PEIKBF_SSP
 {
     //PEIKnifer Simple Small Project Step Basis Compment Class
-    [SerializeField]
+    [Serializable]
     public class StepBasisCompment : PEIKnifer
     {
 

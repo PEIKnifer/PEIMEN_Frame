@@ -56,14 +56,14 @@ namespace PEIKBF_SSP
             }
             overFlag = false;
             NowStep = 0;
-            try
-            { 
+            //try
+            //{ 
             BeginStep();
-            }
-            catch
-            {
-                PEIKDE.LogError("STM", "Step Audio Manager Ins Get Error");
-            }
+            //}
+            //catch(Exception e)
+            //{
+            //    PEIKDE.LogError("STM", "Step Audio Manager Ins Get Error + "+e);
+            //}
             if (NeedAudioFlag && StepAudioManager.ins)
             {
                 StepAudioManager.ins.ChangeAudio(0);
@@ -168,13 +168,18 @@ namespace PEIKBF_SSP
         }
 
         // Running On Next Step Begin Step
-        protected void RefreshStep()
+        public void RefreshStep()
         {
             NowStep = 0;
             for (int i = 0; i < stepBases.Count; i++)
             {
                 stepBases[i].OperationBaseIns.OnRefresh();
                 stepBases[i].OperationPartBaseIns.Refresh();
+                stepBases[i].UIObj.SetActive(false);
+                stepBases[i].NeedShowObj.SetActive(false);
+                stepBases[i].OperationPartBaseIns.OperationStatusChange.RemoveListener(OnStatusChange);
+                stepBases[i].OperationPartBaseIns.PartBaseRemoveEvent((int)PEIKEM_PartBaseStatus.NeedOperation);
+
             }
             BeginStep();
         }
