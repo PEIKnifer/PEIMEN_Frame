@@ -205,6 +205,7 @@ namespace PEIKBF_SSP
                 _operationBase = _operationBaseObj.GetComponent<OperationBase>();
                 _isinOperationFlag = true;
                 _hasObjFlag = true;
+                PEIKDE.Log("GPD", "Base Enter!");
             }
         }
         public void OnTriggerExit(Collider other)
@@ -215,7 +216,16 @@ namespace PEIKBF_SSP
                 _operationBase = null;
                 _isinOperationFlag = false;
                 _hasObjFlag = false;
+                PEIKDE.Log("GPD", "Base Exit!");
             }
+        }
+        public void SetBaseExit()
+        {
+            _operationBaseObj = null;
+            _operationBase = null;
+            _isinOperationFlag = false;
+            _hasObjFlag = false;
+            PEIKDE.Log("GPD", "Base Exit!");
         }
         public void OperationExit()
         {
