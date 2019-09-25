@@ -184,6 +184,32 @@ public class PEIKnifer_Singleton : PEIKnifer
         return obj;
     }
 }
+
+public class PEIKnifer_SingletonTool
+{
+    public static T GetInsWithTag<T>(string tag)
+    {
+        T t = GameObject.FindGameObjectWithTag(tag).GetComponent<T>();
+        try { t.GetType(); }
+        catch
+        {
+            PEIKDE.LogError("SLT", "Singleton Miss With Tag " + tag + " (Check your script Ins)");
+        }
+        return t;
+    }
+    public static T GetIns<T>() where T : PEIKnifer
+    {
+        //if (!obj)
+        //{
+        T obj;
+        var g = new GameObject("PEIMEN_Singleton");
+        obj = (T)g.AddComponent<T>();
+        Type t = typeof(T);
+        PEIKDE.Log("Singleton", "Get Ins Init With " + t);
+        // }
+        return obj;
+    }
+}
 #endregion
 
 
