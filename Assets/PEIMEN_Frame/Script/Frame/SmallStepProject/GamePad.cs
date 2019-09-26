@@ -43,7 +43,7 @@ namespace PEIKBF_SSP
 
         public string OperationTag;
 
-        RaycastHit _hitInfo;
+        public RaycastHit _hitInfo;
 
         protected bool _isinOperationFlag;
         protected Vector2 oldPadPos;

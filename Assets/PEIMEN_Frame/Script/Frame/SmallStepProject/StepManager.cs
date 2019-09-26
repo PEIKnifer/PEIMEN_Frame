@@ -156,7 +156,7 @@ namespace PEIKBF_SSP
             stepBases[NowStep].UIObj.transform.position = stepBases[NowStep].UIPos.transform.position;
             stepBases[NowStep].UIObj.transform.rotation = stepBases[NowStep].UIPos.transform.rotation;
             stepBases[NowStep].OperationPartBaseIns.gameObject.SetActive(true);
-            stepBases[NowStep].OperationPartBaseIns.Refresh();
+            //stepBases[NowStep].OperationPartBaseIns.Refresh();
             stepBases[NowStep].OperationBaseIns.OnBegin();
             stepBases[NowStep].OperationPartBaseIns.OperationStatusChange.AddListener(OnStatusChange);
             //stepBases[NowStep].OperationPartBaseIns.OnStatusChange((int)PartBaseStatus.Done);
