@@ -12,6 +12,7 @@
 //
 /////////////////////////////////////////////////
 
+using PEIKTS;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -214,6 +215,23 @@ public class PEIKnifer_SingletonTool
         PEIKDE.Log("Singleton", "Get Ins Init With " + t);
         // }
         return obj;
+    }
+    public static bool CheckIns_Normal(object obj,Action InsFunc)
+    {
+        if (obj!=null)
+        {
+            return true;
+        }
+        try
+        {
+            InsFunc();
+            return true;
+        }
+        catch
+        {
+            PEIKDE.LogError("PSL","Check Ins Func Error");
+            return false;
+        }
     }
 }
 #endregion

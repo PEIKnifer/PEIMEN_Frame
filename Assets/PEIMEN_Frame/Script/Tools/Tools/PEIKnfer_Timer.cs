@@ -60,14 +60,14 @@ public class PEIKnifer_Timer  {
             if (Timer())
             {
                 _done = true;
-                //PEIKDE.Log("Timer","Timer Update Done");
+                PEIKDE.Log("Timer","Timer Update Done");
             }
             Loom.QueueOnMainThread(() =>
             {
                 if (_done)
                 {
                     Clear();
-                    //PEIKDE.Log("Timer", "Timer CallBack Trigger!!");
+                    PEIKDE.Log("Timer", "Timer CallBack Trigger!!");
                     if (!Loop)
                         _l.RemoveElement(TimerUpdate);
                     _callBack();

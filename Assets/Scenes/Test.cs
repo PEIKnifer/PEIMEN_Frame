@@ -8,12 +8,16 @@ namespace PEIKEV
     public class Test : PEIKnifer_L
     {
         public GameObject target, OldPos;
+        public PEIKnifer_Timer t;
         PEIMEN_STC_Trans trans;
         public float speed;
         private float _disFlag;
         // Start is called before the first frame update
         public override void Awake()
         {
+            t = new PEIKnifer_Timer();
+            t.SetTime(1.5f);
+            //t.EntrustTimer(2,true,this, LogRNG);
             PEIGameObjectFinder.SetAllAsset();
             base.Awake();
             trans = new PEIMEN_STC_Trans(transform.gameObject, target, true, true, 10, 10f, 1f, this, CallBack, SimpleTransType.MoveTowards);
@@ -21,9 +25,20 @@ namespace PEIKEV
             //trans.SetParTrans(OldPos);
             //trans.SetLoopCallBack(4f);
             // _disFlag = Vector3.Distance(target.transform.position, OldPos.transform.position);
-            PEIKDE.Log("TT", "Finder Test DJJ in [" + PEIGameObjectFinder.GetGameObject("DJJ").name+"] Success");
-            PEIKDE.Log("TT", "Finder Test XDD in [" + PEIGameObjectFinder.GetGameObject("XDD").name + "] Success");
+            //PEIKDE.Log("TT", "Finder Test DJJ in [" + PEIGameObjectFinder.GetGameObject("DJJ").name+"] Success");
+            //PEIKDE.Log("TT", "Finder Test XDD in [" + PEIGameObjectFinder.GetGameObject("XDD").name + "] Success");
 
+        }
+        private void LogRNG()
+        {
+            PEIKDE.Log(PEIMath.Random.Next(0,100));
+            PEIKDE.Log(PEIMath.Random.Next(0, 100));
+            PEIKDE.Log(PEIMath.Random.Next(0, 100));
+            PEIKDE.Log(PEIMath.Random.Next(0, 100));
+            PEIKDE.Log(PEIMath.Random.Next(0, 100));
+            PEIKDE.Log(PEIMath.Random.Next(0, 100));
+            PEIKDE.Log(PEIMath.Random.Next(0, 100));
+            PEIKDE.Log(PEIMath.Random.Next(0, 100));
         }
         void Start()
         {
@@ -42,7 +57,11 @@ namespace PEIKEV
         public override void Update()
         {
             base.Update();
-
+            if (t.Timer())
+            {
+                LogRNG();
+                t.Clear();
+            }
             //speed = PEIMEN_ST_CPU.Ins.SpeedCurveTransTool(10,
             //                                      0.5f,
             //                                      2f,
@@ -65,7 +84,7 @@ namespace PEIKEV
             if (trans.Flag.Flag)
             {
                 trans.Flag.Flag = false;
-                PEIKDE.Log("Obj Reset Done !!");
+                //PEIKDE.Log("Obj Reset Done !!");
             }
         }
     }
