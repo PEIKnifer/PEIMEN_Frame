@@ -14,19 +14,23 @@ namespace PEIKEV
         // Start is called before the first frame update
         public override void Awake()
         {
+            PEIGameObjectFinder.SetAllAsset();
             base.Awake();
             trans = new PEIMEN_STC_Trans(transform.gameObject, target, true, true, 10, 10f, 1f, this, CallBack, SimpleTransType.MoveTowards);
             //trans.SetLocalFlag(true);
             //trans.SetParTrans(OldPos);
             //trans.SetLoopCallBack(4f);
             // _disFlag = Vector3.Distance(target.transform.position, OldPos.transform.position);
+            PEIKDE.Log("TT", "Finder Test DJJ in [" + PEIGameObjectFinder.GetGameObject("DJJ").name+"] Success");
+            PEIKDE.Log("TT", "Finder Test XDD in [" + PEIGameObjectFinder.GetGameObject("XDD").name + "] Success");
+
         }
         void Start()
         {
-            PEIEvent.Ins.AddListener<PEIEvent_Test>(EventCallBack);
+            //PEIEvent.Ins.AddListener<PEIEvent_Test>(EventCallBack);
             trans.Flag.Flag = true;
             //PEIEvent.Ins.Trigger(this,new PEIEvent_Test() { Sender = "asd" });
-            PEIEvent.Ins.Trigger<PEIEvent_Test>(this);
+            //PEIEvent.Ins.Trigger<PEIEvent_Test>(this);
         }
 
         private void EventCallBack(object sender, PEIEvent_Origin e)

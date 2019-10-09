@@ -1,4 +1,17 @@
-﻿using System.Collections;
+﻿/////////////////////////////////////////////////
+//
+//PEIMEN Frame System || SimpleTool branch 
+//
+//creat by PEIKnifer[.CN]
+//
+//SimpleTool for Simple Transform Module
+//
+//Create On 2019-10-9 15:40:42
+//
+//Last Update in 2019-10-9 15:40:50  
+//
+/////////////////////////////////////////////////
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PEIKDL;
@@ -158,7 +171,7 @@ namespace PEIKTS {
             model.Target = _target;
             model.OldPos = _oldPos;
             model.Object = _obj;
-            PEIKTM.WeekUp();
+            PEITime.WeekUp();
         }
         /// <summary>
         /// Move To Target Function
@@ -206,22 +219,22 @@ namespace PEIKTS {
             {
                 int  toolNum = 0;
                 if (_transType == SimpleTransType.MoveTowards)
-                    _toolV3a = Vector3.MoveTowards(_toolV3a, _toolV3b, _moveSpeed * PEIKTM.DeltaTime);
+                    _toolV3a = Vector3.MoveTowards(_toolV3a, _toolV3b, _moveSpeed * PEITime.DeltaTime);
                 else
-                    _toolV3a = Vector3.Lerp(_toolV3a, _toolV3b, _moveSpeed * PEIKTM.DeltaTime);
+                    _toolV3a = Vector3.Lerp(_toolV3a, _toolV3b, _moveSpeed * PEITime.DeltaTime);
                 if (_needRotate)
                 {
                     if (_transType == SimpleTransType.MoveTowards)
-                        _toolQua = Quaternion.RotateTowards(_toolQua, _toolQub, _rotSpeed * PEIKTM.DeltaTime);
+                        _toolQua = Quaternion.RotateTowards(_toolQua, _toolQub, _rotSpeed * PEITime.DeltaTime);
                     else
-                        _toolQua = Quaternion.Lerp(_toolQua, _toolQub, _rotSpeed * PEIKTM.DeltaTime);
+                        _toolQua = Quaternion.Lerp(_toolQua, _toolQub, _rotSpeed * PEITime.DeltaTime);
 }
                 if (_needScale)
                 {
                     if (_transType == SimpleTransType.MoveTowards)
-                        _toolS3a = Vector3.MoveTowards(_toolS3a, _toolS3b, _scaleSpeed * PEIKTM.DeltaTime);
+                        _toolS3a = Vector3.MoveTowards(_toolS3a, _toolS3b, _scaleSpeed * PEITime.DeltaTime);
                     else
-                        _toolS3a = Vector3.Lerp (_toolS3a, _toolS3b, _scaleSpeed * PEIKTM.DeltaTime);
+                        _toolS3a = Vector3.Lerp (_toolS3a, _toolS3b, _scaleSpeed * PEITime.DeltaTime);
                 }
                 //if (Vector3.Distance(_toolV3a, _toolV3b) <= 0 && !_needRotate)
                 //    _del = PEIKNF_NullFunction.NullFunction;

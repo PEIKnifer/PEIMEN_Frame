@@ -8,7 +8,7 @@
 //
 //Create On 2019-3
 //
-//Last Update in 2019.3.14 18:01:34
+//Last Update in 2019-10-9 15:47:49  
 //
 /////////////////////////////////////////////////
 
@@ -18,8 +18,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-
-//AllLibrary Class
+/// <summary>
+/// AllLibrary Class
+/// </summary>
 public class PEIMEN_AllLibrary {
 
     //PEIKnifer All Library Class Example In There;
@@ -160,6 +161,9 @@ namespace PEIKDL
 
 
 #region  PEIKnifer singleton
+/// <summary>
+/// PEIKnifer singleton Origin
+/// </summary>
 public class PEIKnifer_Singleton : PEIKnifer
 {
     protected static T GetInsWithTag<T>(string tag)
@@ -184,7 +188,9 @@ public class PEIKnifer_Singleton : PEIKnifer
         return obj;
     }
 }
-
+/// <summary>
+/// PEIKnifer singleton Tool
+/// </summary>
 public class PEIKnifer_SingletonTool
 {
     public static T GetInsWithTag<T>(string tag)
@@ -215,6 +221,10 @@ public class PEIKnifer_SingletonTool
 
 #region  Unity RePackaging
 
+
+/// <summary>
+/// PEIKnifer Bool Flag Origin 
+/// </summary>
 [Serializable]
 public class PEIKnifer_Flag
 {
@@ -276,6 +286,9 @@ public class PEIKnifer_Flag
 
 
 #region  PEIKnifer Custom Class
+/// <summary>
+/// PEIKnifer GameObject Pool Ins Origin 
+/// </summary>
 [Serializable]
 public abstract class GameObjectPoolInsBase : PEIKnifer
 {
@@ -286,7 +299,9 @@ public abstract class GameObjectPoolInsBase : PEIKnifer
 #endregion
 
 #region  PEIKnifer NullFunction Class
-
+/// <summary>
+/// PEIKnifer Null Function Tool Class Origin 
+/// </summary>
 public class PEIKNF_NullFunction
 {
     public static void NullFunction() { }
@@ -295,10 +310,12 @@ public class PEIKNF_NullFunction
 
 #endregion
 #region  PEIKnifer NullFunction Class
-
-public class PEIKTM : PEIKnifer
+/// <summary>
+/// PEIKnifer Time Class Origin 
+/// </summary>
+public class PEITime : PEIKnifer
 {
-    private static PEIKTM _ins;
+    private static PEITime _ins;
 
     public static float DeltaTime { get; private set; }
 
@@ -309,7 +326,7 @@ public class PEIKTM : PEIKnifer
 
         try
         {
-            _ins = Instantiate(new GameObject()).AddComponent<PEIKTM>();
+            _ins = Instantiate(new GameObject()).AddComponent<PEITime>();
             DeltaTime = Time.deltaTime;
             //PEIKDE.Log("PTM", "PEIKTM Time Class Week Up");
             return true;
