@@ -19,19 +19,14 @@ using UnityEngine;
 /// <summary>
 /// PEIKnifer Math Class
 /// </summary>
-public class PEIMath : PEIKnifer_Singleton
+public class PEIMath : PEIKnifer
 {
     /// <summary>
     /// PEIMath Class Random Object
     /// </summary>
-    private static PEIRNG _random;
-
-    public static PEIRNG Random
+    public PEIRNG Random;
+    public PEIMath()
     {
-        get
-        {
-            PEIKnifer_SingletonTool.CheckIns_Normal(_random, () => { _random = new PEIRNG(); });
-            return _random;
-        }
+        Random = new PEIRNG();
     }
 }

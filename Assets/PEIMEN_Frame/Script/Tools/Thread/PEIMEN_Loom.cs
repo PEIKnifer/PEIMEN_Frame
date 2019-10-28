@@ -20,16 +20,16 @@ using System;
 using System.Threading;
 using System.Linq;
 
-namespace PEIKTS
+namespace PEIMEN
 {
-    public class Loom : PEIKnifer
+    public class PEIMEN_Loom : PEIKnifer
     {
         public static int maxThreads = 8;
         static int numThreads;
 
-        private static Loom _current;
+        private static PEIMEN_Loom _current;
         private int _count;
-        public static Loom Current
+        public static PEIMEN_Loom Current
         {
             get
             {
@@ -56,7 +56,7 @@ namespace PEIKTS
                     return;
                 initialized = true;
                 var g = new GameObject("Loom");
-                _current = g.AddComponent<Loom>();
+                _current = g.AddComponent<PEIMEN_Loom>();
                 //PEIKDE.Log("Loom", "Init Complate");
             }
 

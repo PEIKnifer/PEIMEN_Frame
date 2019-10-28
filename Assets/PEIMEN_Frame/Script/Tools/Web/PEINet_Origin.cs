@@ -5,7 +5,18 @@ using UnityEngine;
 using UnityEngine.Networking;
 public class PEINet_Origin : PEIKnifer_Singleton
 {
-   
+
+    public PEINet_Origin(out PEINet_Origin Ins, GameObject parent)
+    {
+        Ins = parent.AddComponent<PEINet_Origin>();
+    }
+
+    [Obsolete]
+    protected PEINet_Origin()
+    {
+
+    }
+
     /// <summary>
     /// GET请求
     /// </summary>

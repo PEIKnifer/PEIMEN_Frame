@@ -8,30 +8,34 @@
 //
 //Create On 2019-10-9 15:40:42
 //
-//Last Update in 2019-10-9 15:40:50  
+//Last Update in 2019-10-28 18:05:23  
 //
 /////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PEIKTS { 
-public class PEIMEN_ST_CPU : PEIKnifer_Singleton
+namespace PEIMEN { 
+public class PEIMEN_STTimeCC : PEIKnifer_Singleton
     {
-        private static PEIMEN_ST_CPU _ins;
+        //private static PEIMEN_ST_CPU _ins;
 
-        public static PEIMEN_ST_CPU Ins
+        //public static PEIMEN_ST_CPU Ins
+        //{
+        //    get
+        //    {
+        //        if (!_ins)
+        //        {
+        //            _ins = GetIns<PEIMEN_ST_CPU>();
+        //            //Init();
+        //        }
+        //        return _ins;
+        //    }
+        //    private set { _ins = value; }
+        //}
+        public PEIMEN_STTimeCC(out PEIMEN_STTimeCC Ins,GameObject parent)
         {
-            get
-            {
-                if (!_ins)
-                {
-                    _ins = GetIns<PEIMEN_ST_CPU>();
-                    //Init();
-                }
-                return _ins;
-            }
-            private set { _ins = value; }
+            Ins = parent.AddComponent<PEIMEN_STTimeCC>();
         }
 
         public float DeltaTime { get; private set; }

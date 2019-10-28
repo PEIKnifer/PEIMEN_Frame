@@ -9,6 +9,100 @@
             PEIKnifer private class for Debug
             </summary>
         </member>
+        <member name="M:PEIKDE.CheckDel">
+            <summary>
+            Safety Check Func
+            </summary>
+        </member>
+        <member name="M:PEIKDE.AddLogDel(PEIKDE_LogDel)">
+            <summary>
+            Add Log Listener Func
+            </summary>
+            <param name="del">Need Add Func</param>
+        </member>
+        <member name="M:PEIKDE.AddErrorDel(PEIKDE_LogDel)">
+            <summary>
+            Add Error Listener Func
+            </summary>
+            <param name="del">Need Add Func</param>
+        </member>
+        <member name="M:PEIKDE.AddWarningDel(PEIKDE_LogDel)">
+            <summary>
+            Add Warning Listener Func
+            </summary>
+            <param name="del">Need Add Func</param>
+        </member>
+        <member name="M:PEIKDE.RemoveLogDel(PEIKDE_LogDel)">
+            <summary>
+            Remove Log Listener Func
+            </summary>
+            <param name="del">Need Remove Func</param>
+        </member>
+        <member name="M:PEIKDE.RemoveErrorDel(PEIKDE_LogDel)">
+            <summary>
+            Remove Error Listener Func
+            </summary>
+            <param name="del">Need Remove Func</param>
+        </member>
+        <member name="M:PEIKDE.RemoveWarningDel(PEIKDE_LogDel)">
+            <summary>
+            Remove Warning Listener Func
+            </summary>
+            <param name="del">Need Remove Func</param>
+        </member>
+        <member name="M:PEIKDE.Log(System.Object,System.Object,System.Object)">
+            <summary>
+            Log Func
+            </summary>
+            <param name="infoA">Info Title</param>
+            <param name="infoB">Main Info</param>
+            <param name="infoC">Info End</param>
+        </member>
+        <member name="M:PEIKDE.Log(System.Object,System.Object)">
+            <summary>
+            Log Func
+            </summary>
+            <param name="infoA">Info Title</param>
+            <param name="infoB">Main Info</param>
+        </member>
+        <member name="M:PEIKDE.Log(System.Object)">
+            <summary>
+            Log Func
+            </summary>
+            <param name="infoA">Main Info</param>
+        </member>
+        <member name="M:PEIKDE.LogError(System.Object,System.Object)">
+            <summary>
+            Log Error Func
+            </summary>
+            <param name="infoA">Info Title</param>
+            <param name="infoB">Main Info</param>
+        </member>
+        <member name="M:PEIKDE.LogError(System.Object)">
+            <summary>
+            Log Error Func
+            </summary>
+            <param name="infoB">Main Info</param>
+        </member>
+        <member name="M:PEIKDE.LogWarning(System.Object,System.Object)">
+            <summary>
+            Log Warning Func
+            </summary>
+            <param name="infoA">Info Title</param>
+            <param name="infoB">Main Info</param>
+        </member>
+        <member name="M:PEIKDE.LogWarning(System.Object)">
+            <summary>
+            Log Warning Func
+            </summary>
+            <param name="infoB">Need Log Info</param>
+        </member>
+        <member name="T:PEIKDE_LogDel">
+            <summary>
+            PEIMEN Log Class Tool Del
+            </summary>
+            <param name="str">Send Msg Name</param>
+        </member>
         <member name="T:PEIKnifer">
             <summary>
             PEIKnifer Base Mono Class

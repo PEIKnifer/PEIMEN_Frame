@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using PEIKDL;
 using System.Threading;
+using PEIMEN;
 
 
 namespace PEIKTS {
@@ -215,7 +216,7 @@ namespace PEIKTS {
         private void MoveStep()
         {
             //PEIKDE.Log("STC", "Move Step!");
-            Loom.RunAsync(() =>
+            PEIMEN_Loom.RunAsync(() =>
             {
                 int  toolNum = 0;
                 if (_transType == SimpleTransType.MoveTowards)
@@ -266,7 +267,7 @@ namespace PEIKTS {
                     _toolNum = 0;
                 }
 
-                Loom.QueueOnMainThread(() =>
+                PEIMEN_Loom.QueueOnMainThread(() =>
                 {
                     if (!_localFlag)
                         _obj.transform.position = _toolV3a;
