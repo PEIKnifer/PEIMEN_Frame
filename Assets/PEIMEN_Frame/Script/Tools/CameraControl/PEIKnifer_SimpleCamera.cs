@@ -141,7 +141,7 @@ namespace PEIKTS
                 {
                     target = tGB.transform;
                 }
-                catch (Exception e)
+                catch
                 {
                 }
                 offsetPos = lOffsetPos;

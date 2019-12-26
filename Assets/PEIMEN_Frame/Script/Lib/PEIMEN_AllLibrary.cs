@@ -8,11 +8,12 @@
 //
 //Create On 2019-3
 //
-//Last Update in 2019-10-9 15:47:49  
+//Last Update in 2019-12-5 18:08:04  
 //
 /////////////////////////////////////////////////
 
 using PEIKTS;
+using PEIMEN;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -186,6 +187,24 @@ public class PEIKnifer_Singleton : PEIKnifer
         Type t = typeof(T);
         PEIKDE.Log("Singleton", "Get Ins Init With " + t);
         // }
+        return obj;
+    }
+    protected static T GetIns<T>(bool entityFlag) where T : PEIKnifer
+    {
+        T obj;
+        if (entityFlag)
+        {
+            obj = (T)PEIMEN_Entity.Ins.gameObject.AddComponent<T>();
+            Type t = typeof(T);
+            PEIKDE.Log("Singleton", "Get Entity Ins Init With " + t);
+        }
+        else
+        {
+            var g = new GameObject("PEIMEN_Singleton");
+            obj = (T)g.AddComponent<T>();
+            Type t = typeof(T);
+            PEIKDE.Log("Singleton", "Get Ins Init With " + t);
+        }
         return obj;
     }
 }

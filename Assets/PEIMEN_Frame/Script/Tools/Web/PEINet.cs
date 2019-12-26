@@ -13,20 +13,22 @@
 /////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
+[Obsolete("Using PEIMEN_Entity.Web Class Ins")]
 public class PEIWWW : PEINet_Origin
 {
-    static PEIWWW instance;
-    public static PEIWWW Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = GetIns<PEIWWW>();
-            }
-            return instance;
-        }
-    }
+    //static PEIWWW instance;
+    //public static PEIWWW Instance
+    //{
+    //    get
+    //    {
+    //        if (instance == null)
+    //        {
+    //            instance = GetIns<PEIWWW>();
+    //        }
+    //        return instance;
+    //    }
+    //}
 }

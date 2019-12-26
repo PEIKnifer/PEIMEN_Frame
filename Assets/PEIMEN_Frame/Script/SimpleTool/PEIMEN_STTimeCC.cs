@@ -11,13 +11,16 @@
 //Last Update in 2019-10-28 18:05:23  
 //
 /////////////////////////////////////////////////
+using PEIMEN.Interface;
+using PEIMEN.Origin;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace PEIMEN { 
-public class PEIMEN_STTimeCC : PEIKnifer_Singleton
+public class PEITime_STTimeCC : PEIModel_Origin,IUpdate
     {
+
         //private static PEIMEN_ST_CPU _ins;
 
         //public static PEIMEN_ST_CPU Ins
@@ -33,10 +36,8 @@ public class PEIMEN_STTimeCC : PEIKnifer_Singleton
         //    }
         //    private set { _ins = value; }
         //}
-        public PEIMEN_STTimeCC(out PEIMEN_STTimeCC Ins,GameObject parent)
-        {
-            Ins = parent.AddComponent<PEIMEN_STTimeCC>();
-        }
+        
+        
 
         public float DeltaTime { get; private set; }
         public float RealtimeSinceStartup { get; private set; }
@@ -44,11 +45,13 @@ public class PEIMEN_STTimeCC : PEIKnifer_Singleton
                       _tctToolNumB,
                       _tctToolNumS;
 
-        private static void Init()
+        public PEITime_STTimeCC()
         {
+            DeltaTime = Time.deltaTime;
+            RealtimeSinceStartup = Time.realtimeSinceStartup;
         }
-        // Update is called once per frame
-        void Update()
+
+        public void OnUpdate()
         {
             DeltaTime = Time.deltaTime;
             RealtimeSinceStartup = Time.realtimeSinceStartup;
@@ -81,6 +84,12 @@ public class PEIMEN_STTimeCC : PEIKnifer_Singleton
             }
         }
 
-        public delegate void STCPUDel(float speed);
+        public override void OnClose()
+        {
+
+        }
+
+
+        //   public delegate void STCPUDel(float speed);
     }
 }

@@ -16,17 +16,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// PEIKnifer Math Class
-/// </summary>
-public class PEIMath : PEIKnifer
+namespace PEIMEN.Origin
 {
     /// <summary>
-    /// PEIMath Class Random Object
+    /// PEIKnifer Math Class
     /// </summary>
-    public PEIRNG Random;
-    public PEIMath()
+    public class PEIMath : PEIModel_Origin
     {
-        Random = new PEIRNG();
+        /// <summary>
+        /// PEIMath Class Random Object
+        /// </summary>
+        public PEIRNG Random;
+        public PEIMath()
+        {
+            Random = new PEIRNG();
+        }
+
+        public override void OnClose()
+        {
+            Random = null;
+        }
     }
 }

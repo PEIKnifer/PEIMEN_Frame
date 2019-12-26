@@ -8,12 +8,13 @@
 //
 //Create On 2019-10-9 17:51:55
 //
-//Last Update in 2019-10-9 17:51:55  
+//Last Update in 2019-12-5 18:08:11  
 //
 /////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine;
 
 namespace PEIKTS
 {
@@ -23,12 +24,13 @@ namespace PEIKTS
     public class PEIRNG : PEIMathOrigin
     {
         private int iSeed = 10;
-        private Random _seed;
+        private System.Random _seed;
 
         public PEIRNG()
         {
             SeedIns();
         }
+
         /// <summary>
         /// Return Int Random Num Between Min & Max;
         /// </summary>
@@ -75,7 +77,7 @@ namespace PEIKTS
         {
             //Random ro = new Random(535);
             long tick = DateTime.Now.Ticks;
-            _seed = new Random((int)(tick & 0xffffffffL) | (int)(tick >> 32));
+            _seed = new System.Random((int)(tick & 0xffffffffL) | (int)(tick >> 32));
         }
     }
     

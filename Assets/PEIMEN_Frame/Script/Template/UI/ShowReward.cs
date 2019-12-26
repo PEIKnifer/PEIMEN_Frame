@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShowReward : MonoBehaviour {
-    public giftstage animation;
+public class ShowReward : PEIKnifer {
+    public new giftstage animation;
     public float oStartUp;
     void Start()
     {

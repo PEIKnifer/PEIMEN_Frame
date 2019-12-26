@@ -97,6 +97,16 @@
             </summary>
             <param name="infoB">Need Log Info</param>
         </member>
+        <member name="T:PEIKDE_Manager">
+            <summary>
+            PEIKDE Class Switch Manager Class
+            </summary>
+        </member>
+        <member name="F:PEIKDE_Manager.DebugFlag">
+            <summary>
+            PEIKDE Class Switch Flag
+            </summary>
+        </member>
         <member name="T:PEIKDE_LogDel">
             <summary>
             PEIMEN Log Class Tool Del

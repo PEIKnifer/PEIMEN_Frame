@@ -19,7 +19,7 @@ namespace PEIKTS
     /// <summary>
     /// PEIKnifer Math Class Origin
     /// </summary>
-    public class PEIMathOrigin : PEIKnifer
+    public class PEIMathOrigin : PEIKnifer_Origin
     {
         
     }

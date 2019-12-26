@@ -1,21 +1,31 @@
-﻿using System;
+﻿/////////////////////////////////////////////////
+//
+//PEIMEN Frame System || GeneralObjMove branch 
+//
+//creat by PEIKnifer[.CN]
+//
+//Frame for GeneralObjFollow
+//
+//Create On 2016-5
+//
+//Last Update in 2019-12-5 18:07:03
+//
+/////////////////////////////////////////////////
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-public class PEINet_Origin : PEIKnifer_Singleton
+using PEIMEN.Origin;
+using PEIMEN;
+
+public class PEINet_Origin : PEIModel_Origin
 {
 
-    public PEINet_Origin(out PEINet_Origin Ins, GameObject parent)
-    {
-        Ins = parent.AddComponent<PEINet_Origin>();
-    }
-
-    [Obsolete]
-    protected PEINet_Origin()
-    {
-
-    }
+    //public PEINet_Origin(out PEINet_Origin Ins, GameObject parent)
+    //{
+    //    Ins = parent.AddComponent<PEINet_Origin>();
+    //}
 
     /// <summary>
     /// GET请求
@@ -24,7 +34,7 @@ public class PEINet_Origin : PEIKnifer_Singleton
     /// <param name="action"></param>
     public void Get(string url, Action<UnityWebRequest> actionResult)
     {
-        StartCoroutine(_Get(url, actionResult));
+        PEIMEN_Entity.MonoTool.StartCoroutine(_Get(url, actionResult));
     }
 
     /// <summary>
@@ -36,7 +46,7 @@ public class PEINet_Origin : PEIKnifer_Singleton
     /// <returns></returns>
     public void DownloadFile(string url, string downloadFilePathAndName, Action<UnityWebRequest> actionResult)
     {
-        StartCoroutine(_DownloadFile(url, downloadFilePathAndName, actionResult));
+        PEIMEN_Entity.MonoTool.StartCoroutine(_DownloadFile(url, downloadFilePathAndName, actionResult));
     }
 
     /// <summary>
@@ -47,7 +57,7 @@ public class PEINet_Origin : PEIKnifer_Singleton
     /// <returns></returns>
     public void GetTexture(string url, Action<Texture2D> actionResult)
     {
-        StartCoroutine(_GetTexture(url, actionResult));
+        PEIMEN_Entity.MonoTool.StartCoroutine(_GetTexture(url, actionResult));
     }
 
     /// <summary>
@@ -58,7 +68,7 @@ public class PEINet_Origin : PEIKnifer_Singleton
     /// <returns></returns>
     public void GetAssetBundle(string url, Action<AssetBundle> actionResult)
     {
-        StartCoroutine(_GetAssetBundle(url, actionResult));
+        PEIMEN_Entity.MonoTool.StartCoroutine(_GetAssetBundle(url, actionResult));
     }
 
     /// <summary>
@@ -70,7 +80,7 @@ public class PEINet_Origin : PEIKnifer_Singleton
     /// <returns></returns>
     public void GetAudioClip(string url, Action<AudioClip> actionResult, AudioType audioType = AudioType.WAV)
     {
-        StartCoroutine(_GetAudioClip(url, actionResult, audioType));
+        PEIMEN_Entity.MonoTool.StartCoroutine(_GetAudioClip(url, actionResult, audioType));
     }
 
     /// <summary>
@@ -86,7 +96,7 @@ public class PEINet_Origin : PEIKnifer_Singleton
         //formData.Add(new MultipartFormDataSection("field1=foo&field2=bar"));
         //formData.Add(new MultipartFormFileSection("my file data", "myfile.txt"));
 
-        StartCoroutine(_Post(serverURL, lstformData, actionResult));
+        PEIMEN_Entity.MonoTool.StartCoroutine(_Post(serverURL, lstformData, actionResult));
     }
 
     /// <summary>
@@ -98,7 +108,7 @@ public class PEINet_Origin : PEIKnifer_Singleton
     /// <returns></returns>
     public void UploadByPut(string url, byte[] contentBytes, Action<bool> actionResult)
     {
-        StartCoroutine(_UploadByPut(url, contentBytes, actionResult, ""));
+        PEIMEN_Entity.MonoTool.StartCoroutine(_UploadByPut(url, contentBytes, actionResult, ""));
     }
 
     /// <summary>
@@ -256,4 +266,7 @@ public class PEINet_Origin : PEIKnifer_Singleton
         }
     }
 
+    public override void OnClose()
+    {
+    }
 }
